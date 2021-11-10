@@ -1,18 +1,38 @@
 public class SelfAvoidingWalker {
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args){
+
+//        A dog walks around at
+//        random in a city, never
+//        revisiting any intersection.
+
+//         Q. Does the dog escape?
+
+//        Model: a random process in an N-by-N lattice
+//            • Start in the middle.
+//            • Move to a random neighboring intersection
+//                    but do not revisit any intersection.
+//            • Outcome 1 (escape): reach edge of lattice.
+//            • Outcome 2 (dead end): no unvisited neighbors.
+
+//        Q. What are the chances of reaching a dead end?
+
+//        Approach: Use Monte Carlo simulation, recording visited positions in an N-by-N array.
+
+
         int N = Integer.parseInt(args[0]);
         int trials = Integer.parseInt(args[1]);
         int deadEnds = 0;
-        for (int t = 0; t < trials; t++)
-        {
+        for (int t = 0; t < trials; t++){
+
             boolean[][] a = new boolean[N][N];
             int x = N/2, y = N/2;
-            while (x > 0 && x < N-1 && y > 0 && y < N-1)
-            {
+            while (x > 0 && x < N-1 && y > 0 && y < N-1){
+
                 if (a[x-1][y] && a[x+1][y] && a[x][y-1] && a[x][y+1])
                 { deadEnds++; break; }
+
+
                 a[x][y] = true;
                 double r = Math.random();
                 if (r < 0.25) { if (!a[x+1][y]) x++; }
